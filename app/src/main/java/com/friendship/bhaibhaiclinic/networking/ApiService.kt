@@ -17,13 +17,11 @@ interface ApiService {
 
     @GET(ENDPOINT_GET_PROVIDER_LIST)
     suspend fun getProviderList(
-        @Header("Authorization") typeToken: String,
     ): Response<ResponseBody>
 
 
     @PUT(ENDPOINT_PUT_PROVIDER)
     suspend fun updateProvider(
-        @Header("Authorization") typeToken: String,
         @Path("user-id") userId: String,
         @Body body: RequestBody
     ): Response<ResponseBody>
@@ -31,7 +29,6 @@ interface ApiService {
 
     @POST(ENDPOINT_POST_PROVIDER_CREATE)
     suspend fun createProvider(
-        @Header("Authorization") typeToken: String,
         @Path("id") id: String,
         @Body body: RequestBody
     ): Response<ResponseBody>

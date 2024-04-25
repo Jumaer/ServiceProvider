@@ -24,6 +24,7 @@ object Constant {
     const val ONLINE_CACHE_VALUE_HINT = "public, max-age="
     const val REMOVABLE_HEADER = "Pragma"
 
+
     /**
      * Project constants are here ..
      * Hence we can change or replace from this place..
