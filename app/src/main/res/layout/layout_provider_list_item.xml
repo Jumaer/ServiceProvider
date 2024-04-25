@@ -8,13 +8,13 @@
     android:outlineSpotShadowColor="@color/opp_10_black"
     app:cardBackgroundColor="@color/white"
     app:cardElevation="@dimen/_3sdp"
-    android:layout_height="@dimen/_82sdp"
+    android:layout_height="wrap_content"
     tools:targetApi="p">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="@dimen/_8sdp"
+        android:padding="@dimen/_10sdp"
         android:layout_height="match_parent">
 
         <TextView
