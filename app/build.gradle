@@ -1,0 +1,136 @@
+// NECESSARY PLUGINS FEATURES
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id "kotlin-kapt"
+    id "kotlin-parcelize"
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    namespace 'com.friendship.bhaibhaiclinic'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.friendship.bhaibhaiclinic"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // Build Features Controller
+    buildFeatures {
+        buildConfig = true
+        // For view Bindings
+        viewBinding true
+    }
+
+    // Build Type Controller
+    buildTypes {
+
+        // Release configure ..
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_CONFIG", "\"live_type\"") // LIVE_TYPE
+        }
+
+        // DEBUG configure ..
+        debug {
+            buildConfigField("String", "BASE_CONFIG", "\"dev_type\"") // DEV_TYPE
+        }
+
+        // ANY BETA configure ..
+        beta {
+            buildConfigField("String", "BASE_CONFIG", "\"test_type\"") // QA_TYPE
+        }
+
+
+        // Applicant Variants
+        applicationVariants.all{
+            // this method is use to rename your all apk weather
+            // it may be signed or unsigned(debug apk)
+                variant ->
+            variant.outputs.each{
+                // on below line we are setting a name to our apk
+                    output->
+                // on below line we are specifying our app name.
+                project.ext { appName = 'BhaiBhaiClinic' }
+                // on below line we are adding the formatted date to our apk file name.
+                def formattedDate = new Date().format('yyyy-MM-dd-HH-mm-ss')
+                // on below line we are creating a new name for our apk.
+                def newName = output.outputFile.name
+                        // on below line we are replacing our previous name with our app name.
+                        newName = newName.replace("app-", "$project.ext.appName-")
+                // on below line we are replacing -debug with our formatted date.
+                newName = newName.replace("-debug", "-debug-" + formattedDate)
+                // on below line we are replacing -release with our formatted date.
+                newName = newName.replace("-release", "-release-" + formattedDate)
+                // at last we are setting our apk name to it.
+                output.outputFileName  = newName
+
+            }
+
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_17
+                sourceCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+
+
+    implementation libs.androidx.core.ktx.v1130
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.constraintlayout
+    implementation libs.play.services.vision
+
+    // FOR TESTINGS
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+
+
+    // navigation component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+
+
+    // sdp -- for dynamic text and view size
+    implementation libs.sdp.android
+    implementation libs.ssp.android
+
+
+
+    // Retrofit
+    implementation libs.retrofit
+    //Gson
+    implementation libs.converter.gson
+    //Scalars
+    implementation libs.converter.scalars
+
+    // Logger for Retrofit
+    implementation libs.logging.interceptor
+
+    // To Load any image
+    implementation libs.glide
+
+
+
+    // ViewModel
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    // LiveData
+    implementation libs.androidx.lifecycle.livedata.ktx
+}
