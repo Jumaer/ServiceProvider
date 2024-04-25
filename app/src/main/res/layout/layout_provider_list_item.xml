@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="0dp"
+    android:layout_margin="@dimen/_2sdp"
+    android:outlineSpotShadowColor="@color/opp_10_black"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/_3sdp"
+    android:layout_height="@dimen/_82sdp"
+    tools:targetApi="p">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_8sdp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txt_first_letter"
+            android:layout_width="@dimen/_42sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:background="@drawable/ic_circle_text"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text="@string/test_a"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_24ssp"
+            app:layout_constraintHorizontal_bias="0"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/img_edit"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:src="@drawable/ic_edit_icon"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fahmida Sultana"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:textAllCaps="false"
+            android:textColor="@color/main_txt_color"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/img_edit"
+            app:layout_constraintStart_toEndOf="@+id/txt_first_letter"
+            app:layout_constraintTop_toTopOf="@+id/txt_first_letter" />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/txt_gender"
+            android:textColor="@color/support_txt_color"
+            android:textStyle="italic"
+            android:textSize="@dimen/_10ssp"
+            android:textAllCaps="false"
+            android:text="female"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/txt_name"
+            app:layout_constraintStart_toStartOf="@+id/txt_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/txt_email"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/support_txt_color"
+            android:textStyle="italic"
+            android:textAllCaps="false"
+            android:text="fahmia@gmail.com"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/txt_gender"
+            app:layout_constraintStart_toStartOf="@+id/txt_gender"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>
