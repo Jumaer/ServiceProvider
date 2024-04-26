@@ -142,10 +142,15 @@ class ChangeProviderFragment : Fragment() {
             val gender = layoutGender.editText?.text.toString().trim()
             val status = layoutStatus.editText?.text.toString().trim()
 
-            if(!Helper.isValidEmail(mail)) {
+
+            if(name.length<5) {
+                layoutName.editText?.error = "Min 5 char need"
+                layoutName.editText?.requestFocus()
                 return
             }
-            if(name.length<5) {
+            if(!Helper.isValidEmail(mail)) {
+                layoutEmail.editText?.error = "Mail is not valid"
+                layoutEmail.editText?.requestFocus()
                 return
             }
 
