@@ -37,17 +37,17 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_CONFIG", "\"live_type\"") // LIVE_TYPE
+            buildConfigField("String", "BASE_CONFIG", "\"https://gorest.co.in/\"") // LIVE_TYPE
         }
 
         // DEBUG configure ..
         debug {
-            buildConfigField("String", "BASE_CONFIG", "\"dev_type\"") // DEV_TYPE
+            buildConfigField("String", "BASE_CONFIG", "\"https://gorest.co.in/\"") // DEV_TYPE
         }
 
         // ANY BETA configure ..
         beta {
-            buildConfigField("String", "BASE_CONFIG", "\"test_type\"") // QA_TYPE
+            buildConfigField("String", "BASE_CONFIG", "\"https://gorest.co.in/\"") // QA_TYPE
         }
 
 

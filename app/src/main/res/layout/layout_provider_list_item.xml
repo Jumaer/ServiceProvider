@@ -40,9 +40,9 @@
 
         <ImageView
             android:id="@+id/img_edit"
-            android:layout_width="@dimen/_18sdp"
+            android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_18sdp"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_margin="@dimen/_4sdp"
             android:src="@drawable/ic_edit_icon"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"

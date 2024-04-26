@@ -1,5 +1,6 @@
 package com.friendship.bhaibhaiclinic.hilt
 
+import com.friendship.bhaibhaiclinic.BuildConfig
 import com.friendship.bhaibhaiclinic.base.Constant.ACCEPT
 import com.friendship.bhaibhaiclinic.base.Constant.APPLICATION_JSON
 import com.friendship.bhaibhaiclinic.base.Constant.CONTENT_TYPE
@@ -25,7 +26,7 @@ object AppModule {
 
 
     @Provides
-    fun providesUrl() = "https://gorest.co.in/"
+    fun providesUrl() = BuildConfig.BASE_CONFIG
 
 
     @Singleton
