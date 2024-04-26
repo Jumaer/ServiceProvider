@@ -8,7 +8,8 @@ import androidx.core.content.ContextCompat
 import com.friendship.bhaibhaiclinic.databinding.LayoutLoadingDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class LoadingDialog(context: Context) {
+
+class LoadingDialog ( context: Context) {
     private var dialog: AlertDialog
     init {
         MaterialAlertDialogBuilder(context).apply {

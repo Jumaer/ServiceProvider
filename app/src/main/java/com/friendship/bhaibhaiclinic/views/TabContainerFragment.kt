@@ -7,13 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.friendship.bhaibhaiclinic.base.Constant.TAG
+import com.friendship.bhaibhaiclinic.base.LoadingDialog
 
 import com.friendship.bhaibhaiclinic.databinding.FragmentTabContainerBinding
+import com.friendship.bhaibhaiclinic.hilt.TokenManager
 import com.friendship.bhaibhaiclinic.model.ProviderListResponse
 import com.friendship.bhaibhaiclinic.networking.DataState
 import com.friendship.bhaibhaiclinic.view_model.ProviderViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -21,7 +26,10 @@ class TabContainerFragment : Fragment() {
 
 
     private lateinit var binding: FragmentTabContainerBinding
+    private lateinit var loadingDialog : LoadingDialog
     private val viewModel:ProviderViewModel by viewModels()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +38,13 @@ class TabContainerFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTabContainerBinding.inflate(inflater, container, false)
 
+
         observeProviders()
 
-        context?.let { viewModel.getProviders(it) }
+        context?.let {
+            viewModel.getProviders(it)
+            loadingDialog = LoadingDialog(it)
+        }
 
         return binding.root
     }
@@ -49,21 +61,22 @@ class TabContainerFragment : Fragment() {
 
                         val response =
                             Gson().fromJson(body, ProviderListResponse::class.java)
-                        Log.e("_TEST_TAG", response.toString())
+                        Log.e(TAG, response.toString())
 
                     }
-                   // loadingDialog.dismiss()
+                    loadingDialog.dismiss()
+                    Log.e(TAG, "loading Done ..")
                 }
 
                 is DataState.Loading -> {
-                  //  loadingDialog.show()
-                    Log.e("_TEST_TAG", "loadingDialog")
+                    loadingDialog.show()
+                    Log.e(TAG, "loading..")
                 }
 
                 is DataState.Error -> {
 
-                   // loadingDialog.dismiss()
-                    Log.e("_TEST_TAG", "loadingDismiss")
+                    loadingDialog.dismiss()
+                    Log.e(TAG, "loading Done ..")
                 }
 
             }
