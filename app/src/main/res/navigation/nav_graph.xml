@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/tabContainerFragment">
+
+    <fragment
+        android:id="@+id/activeProviderFragment"
+        android:name="com.friendship.bhaibhaiclinic.views.tabs.ActiveProviderFragment"
+        android:label="fragment_active_provider"
+        tools:layout="@layout/fragment_active_provider" />
+    <fragment
+        android:id="@+id/changeProviderFragment"
+        android:name="com.friendship.bhaibhaiclinic.views.ChangeProviderFragment"
+        android:label="fragment_change_provider"
+        tools:layout="@layout/fragment_change_provider" />
+    <fragment
+        android:id="@+id/tabContainerFragment"
+        android:name="com.friendship.bhaibhaiclinic.views.TabContainerFragment"
+        android:label="fragment_tab_container"
+        tools:layout="@layout/fragment_tab_container" />
+    <fragment
+        android:id="@+id/inActiveProviderFragment"
+        android:name="com.friendship.bhaibhaiclinic.views.tabs.InActiveProviderFragment"
+        android:label="fragment_in_active_provider"
+        tools:layout="@layout/fragment_in_active_provider" />
+</navigation>

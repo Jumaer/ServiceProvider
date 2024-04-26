@@ -51,7 +51,7 @@ constructor(private val repository: ProviderRepository, ) : BaseViewModel() {
     val createProvider: LiveData<DataState<Response<ResponseBody>>> get() = _createProvider
 
 
-    fun createProvider(context: Context, id: String, body: RequestBody) = dataCall(context)  {
+    fun createProvider(context: Context,  body: RequestBody) = dataCall(context)  {
         _createProvider.value = DataState.Loading
         _createProvider.value = repository.createProvider( body)
     }

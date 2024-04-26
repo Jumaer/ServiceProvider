@@ -134,14 +134,11 @@ dependencies {
     // LiveData
     implementation libs.androidx.lifecycle.livedata.ktx
 
+
     // For Hilt Code
-    implementation libs.hilt.android
+    implementation(libs.hilt.android.v248)
     //For KAPT
-    kapt libs.hilt.compiler
+    kapt(libs.hilt.android.compiler)
 }
 
 
-kapt {
-    // Allow references to generated code
-    correctErrorTypes true
-}
