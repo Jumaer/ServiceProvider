@@ -19,7 +19,11 @@
         android:id="@+id/tabContainerFragment"
         android:name="com.friendship.bhaibhaiclinic.views.TabContainerFragment"
         android:label="fragment_tab_container"
-        tools:layout="@layout/fragment_tab_container" />
+        tools:layout="@layout/fragment_tab_container" >
+        <action
+            android:id="@+id/action_tabContainerFragment_to_changeProviderFragment"
+            app:destination="@id/changeProviderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inActiveProviderFragment"
         android:name="com.friendship.bhaibhaiclinic.views.tabs.InActiveProviderFragment"

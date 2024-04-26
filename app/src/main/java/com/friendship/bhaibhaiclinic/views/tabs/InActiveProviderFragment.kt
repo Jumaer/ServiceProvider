@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.adapter.ProviderItemAdapter
 
 import com.friendship.bhaibhaiclinic.base.Constant
@@ -42,6 +45,7 @@ class InActiveProviderFragment : Fragment() {
         requireContext().let {
             loadingDialog = LoadingDialog(it)
             observeProviders()
+            viewModel.getProviders(requireContext())
         }
         setAdapter()
         return binding.root
@@ -99,7 +103,11 @@ class InActiveProviderFragment : Fragment() {
             prvItem = list,
             object : ProviderItemAdapter.OnCardClickListener {
                 override fun onClick(data: ProviderItem) {
-
+                    findNavController().navigate(
+                        R.id.action_tabContainerFragment_to_changeProviderFragment, bundleOf(
+                            Constant.UPDATE to data
+                        )
+                    )
                 }
 
             }

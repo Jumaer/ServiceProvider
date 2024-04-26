@@ -39,4 +39,11 @@ object Constant {
     // Application common tag to test log
     const val TAG = "_TEST_TAG"
 
+
+    /**
+     * For data passing ..
+     */
+
+    const val UPDATE = "UPDATE"
+    const val CREATE = "CREATE"
 }

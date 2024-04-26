@@ -7,10 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.adapter.ProviderItemAdapter
 
 import com.friendship.bhaibhaiclinic.base.Constant
+import com.friendship.bhaibhaiclinic.base.Constant.UPDATE
 import com.friendship.bhaibhaiclinic.base.LoadingDialog
 
 import com.friendship.bhaibhaiclinic.databinding.FragmentActiveProviderBinding
@@ -35,7 +40,7 @@ class ActiveProviderFragment : Fragment() {
     private val list = ArrayList<ProviderItem>()
     private lateinit var binding: FragmentActiveProviderBinding
     private lateinit var loadingDialog: LoadingDialog
-    private val viewModel : ProviderViewModel by activityViewModels()
+    private val viewModel: ProviderViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +59,16 @@ class ActiveProviderFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProviders(requireContext())
+    }
 
     private fun observeProviders() {
         viewModel.getProviders.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Success -> {
-                    if(NetworkUtil.isValidResponse(it)){
+                    if (NetworkUtil.isValidResponse(it)) {
                         // get data
                         val body = it.value.body()?.string()
                         val response =
@@ -84,10 +93,10 @@ class ActiveProviderFragment : Fragment() {
     }
 
     private fun setData(response: ProviderListResponse?) {
-        if(response == null) return
+        if (response == null) return
         list.clear()
         response.forEach {
-            if(it.status == Constant.ACTIVE){
+            if (it.status == Constant.ACTIVE) {
                 it.apply {
                     list.add(ProviderItem(email, gender, id, name, status))
                 }
@@ -106,6 +115,11 @@ class ActiveProviderFragment : Fragment() {
             object : ProviderItemAdapter.OnCardClickListener {
                 override fun onClick(data: ProviderItem) {
 
+                    findNavController().navigate(
+                        R.id.action_tabContainerFragment_to_changeProviderFragment, bundleOf(
+                            UPDATE to data
+                        )
+                    )
                 }
 
             }
@@ -116,8 +130,6 @@ class ActiveProviderFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
-
-
 
 
 }

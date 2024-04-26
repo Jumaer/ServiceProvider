@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.adapter.ViewPagerAdapter
@@ -16,6 +18,7 @@ import com.friendship.bhaibhaiclinic.base.LoadingDialog
 
 
 import com.friendship.bhaibhaiclinic.databinding.FragmentTabContainerBinding
+import com.friendship.bhaibhaiclinic.model.ProviderItem
 import com.friendship.bhaibhaiclinic.model.ProviderListResponse
 import com.friendship.bhaibhaiclinic.networking.DataState
 import com.friendship.bhaibhaiclinic.util.NetworkUtil
@@ -33,7 +36,7 @@ class TabContainerFragment : Fragment() {
 
     private lateinit var binding: FragmentTabContainerBinding
 
-    private val viewModel : ProviderViewModel by activityViewModels()
+
 
 
     override fun onCreateView(
@@ -44,6 +47,16 @@ class TabContainerFragment : Fragment() {
         binding = FragmentTabContainerBinding.inflate(inflater, container, false)
 
         setAdapter()
+        binding.addFab.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.action_tabContainerFragment_to_changeProviderFragment, bundleOf(
+                    Constant.CREATE to ProviderItem("Enter your email","",0,"Enter your name",
+                        Constant.INACTIVE
+                    )
+                )
+            )
+        }
         return binding.root
     }
 
@@ -63,7 +76,6 @@ class TabContainerFragment : Fragment() {
                 tab.text = tabArrayList[position]
             }.attach()
 
-            context?.let { viewModel.getProviders(it) }
         }
 
 

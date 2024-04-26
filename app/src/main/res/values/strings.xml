@@ -7,4 +7,18 @@
     <string name="service_provider_list">Service Provider List</string>
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
+    <string name="create">Create</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+
+    </string-array>
 </resources>
