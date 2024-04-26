@@ -143,6 +143,9 @@ class ChangeProviderFragment : Fragment() {
             if(!Helper.isValidEmail(mail)) {
                 return
             }
+            if(name.length<5) {
+                return
+            }
 
             data = ProviderItem(mail,gender,data?.id,name,status)
 
