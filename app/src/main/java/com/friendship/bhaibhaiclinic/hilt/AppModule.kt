@@ -25,15 +25,7 @@ import javax.inject.Singleton
 object AppModule {
 
 
-    /**
-     * This watcher will help to observe and see network call detail
-     */
-    @Singleton
-    private val watcher by lazy {
-        HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
+
 
     @Provides
     fun providesUrl() = "https://gorest.co.in/"
@@ -57,11 +49,21 @@ object AppModule {
             .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(Interceptor { chain ->
                 val response: Response = chain.proceed(request)
+                if (response.code == 200) {
+                    return@Interceptor response
+                }
+                if (response.code == 401) {
+                    return@Interceptor response
+                }
+                if (response.code == 500) {
+                    return@Interceptor response
+                }
                 response.close()
                 chain.proceed(request)
-            }).also { builder ->
-                watcher.let { builder.addInterceptor(it) }
-            }
+            })
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            })
             .addInterceptor(interceptor).build()
     }
 

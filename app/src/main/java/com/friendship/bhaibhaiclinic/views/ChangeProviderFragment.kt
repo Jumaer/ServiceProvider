@@ -148,7 +148,7 @@ class ChangeProviderFragment : Fragment() {
                 return
             }
 
-            Log.d(TAG, "$name $mail $gender $mail")
+            Log.d(TAG, "$name $mail $gender $status")
 
             data = ProviderItem(mail,gender,data?.id,name,status)
 
