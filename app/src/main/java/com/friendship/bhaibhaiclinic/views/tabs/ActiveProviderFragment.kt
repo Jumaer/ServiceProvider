@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.databinding.FragmentActiveProviderBinding
 import com.friendship.bhaibhaiclinic.databinding.FragmentInActiveProviderBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ActiveProviderFragment : Fragment() {
 
 

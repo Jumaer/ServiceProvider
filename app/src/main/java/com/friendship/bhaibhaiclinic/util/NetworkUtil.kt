@@ -1,9 +1,10 @@
-package com.friendship.bhaibhaiclinic.networking
+package com.friendship.bhaibhaiclinic.util
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.friendship.bhaibhaiclinic.base.Constant
+import com.friendship.bhaibhaiclinic.networking.DataState
 import okhttp3.ResponseBody
 import retrofit2.Response
 

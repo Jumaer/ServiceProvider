@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.databinding.FragmentChangeProviderBinding
 import com.friendship.bhaibhaiclinic.databinding.FragmentTabContainerBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class TabContainerFragment : Fragment() {
 
 

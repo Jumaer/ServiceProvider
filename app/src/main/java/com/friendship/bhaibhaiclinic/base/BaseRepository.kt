@@ -1,6 +1,7 @@
 package com.friendship.bhaibhaiclinic.base
 
 import com.friendship.bhaibhaiclinic.networking.DataState
+import com.friendship.bhaibhaiclinic.util.NetworkUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -8,6 +9,7 @@ import retrofit2.HttpException
 abstract class BaseRepository {
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): DataState<T> {
+
         return withContext(Dispatchers.IO) {
             try {
                 DataState.Success(apiCall.invoke())
