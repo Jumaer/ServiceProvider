@@ -19,72 +19,36 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-
 
 
     @Provides
     fun providesUrl() = "https://gorest.co.in/"
 
 
-
     @Singleton
     @Provides
-    fun providesRetrofit(url:String): Retrofit.Builder {
+    fun providesRetrofit(url: String): Retrofit.Builder {
         return Retrofit.Builder().baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .addConverterFactory(ScalarsConverterFactory.create())
     }
 
-    @Singleton
+
     @Provides
-    fun provideOkHttpClient(interceptor: AuthInterceptor, request : Request): OkHttpClient {
-        return OkHttpClient.Builder()
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(Interceptor { chain ->
-                val response: Response = chain.proceed(request)
-                if (response.code == 200) {
-                    return@Interceptor response
-                }
-                if (response.code == 401) {
-                    return@Interceptor response
-                }
-                if (response.code == 500) {
-                    return@Interceptor response
-                }
-                response.close()
-                chain.proceed(request)
-            })
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
-            })
-            .addInterceptor(interceptor).build()
+    @Singleton
+    fun provideHttpClient(interceptor: AuthInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
     }
 
     @Singleton
     @Provides
-    fun providesUserAPI(retrofitBuilder: Retrofit.Builder): ApiService {
-        return retrofitBuilder.build().create(ApiService::class.java)
+    fun providesUserAPI(client: OkHttpClient, retrofitBuilder: Retrofit.Builder): ApiService {
+        return retrofitBuilder.client(client).build().create(ApiService::class.java)
     }
 
 
-    /**
-     * By this method we can get the instance of a request..
-     * @param chain is the instance of Interceptor.Chain
-     * @return Request
-     */
-    @Singleton
-    @Provides
-    fun getInstanceOfRequest(chain: Interceptor.Chain): Request {
-        return chain.request().newBuilder()
-            .addHeader(ACCEPT, APPLICATION_JSON)
-            .addHeader(CONTENT_TYPE, APPLICATION_JSON)
-            .build()
-    }
+
 }
