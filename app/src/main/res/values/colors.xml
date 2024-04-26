@@ -10,4 +10,6 @@
     <color name="sky_blue">#2171AB</color>
     <color name="orange">#EF5E50</color>
     <color name="yellow">#FFC811</color>
+    <color name="topic_color">#EBEBEB</color>
+    <color name="tab_inactive_border">#B3B3B3</color>
 </resources>

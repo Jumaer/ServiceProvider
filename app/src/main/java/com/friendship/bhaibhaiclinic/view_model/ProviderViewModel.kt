@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.base.BaseViewModel
+import com.friendship.bhaibhaiclinic.model.ProviderListResponse
 import com.friendship.bhaibhaiclinic.networking.DataState
 
 import com.friendship.bhaibhaiclinic.repository.ProviderRepository
@@ -55,4 +56,8 @@ constructor(private val repository: ProviderRepository, ) : BaseViewModel() {
         _createProvider.value = DataState.Loading
         _createProvider.value = repository.createProvider( body)
     }
+
+
+
+
 }

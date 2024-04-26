@@ -5,9 +5,10 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.friendship.bhaibhaiclinic.R
 import java.lang.Exception
 
-class Helper {
+class Helper() {
     companion object {
         fun isValidEmail(email: String): Boolean {
             return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -21,6 +22,23 @@ class Helper {
 
             }
         }
+
+
+
+        fun getColors(context: Context) : ArrayList<Int>{
+
+            val list = ArrayList<Int>()
+            list.add(context.getColor(R.color.sky_blue))
+            list.add(context.getColor(R.color.orange))
+            list.add(context.getColor(R.color.theme_color))
+            list.add(context.getColor(R.color.yellow))
+
+            return list
+        }
+
+
+
+
     }
 
 }
