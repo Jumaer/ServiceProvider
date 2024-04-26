@@ -28,6 +28,7 @@ object AppModule {
     /**
      * This watcher will help to observe and see network call detail
      */
+    @Singleton
     private val watcher by lazy {
         HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY

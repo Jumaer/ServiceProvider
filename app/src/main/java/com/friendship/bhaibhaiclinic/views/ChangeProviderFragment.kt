@@ -16,6 +16,7 @@ import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.base.Constant
 import com.friendship.bhaibhaiclinic.base.Constant.ACTIVE
 import com.friendship.bhaibhaiclinic.base.Constant.INACTIVE
+import com.friendship.bhaibhaiclinic.base.Constant.TAG
 import com.friendship.bhaibhaiclinic.base.LoadingDialog
 import com.friendship.bhaibhaiclinic.databinding.FragmentChangeProviderBinding
 import com.friendship.bhaibhaiclinic.model.ProviderItem
@@ -146,6 +147,8 @@ class ChangeProviderFragment : Fragment() {
             if(name.length<5) {
                 return
             }
+
+            Log.d(TAG, "$name $mail $gender $mail")
 
             data = ProviderItem(mail,gender,data?.id,name,status)
 
