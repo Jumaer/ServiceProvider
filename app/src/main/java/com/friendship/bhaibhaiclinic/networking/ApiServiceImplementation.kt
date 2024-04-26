@@ -16,7 +16,7 @@ class ApiServiceImplementation @Inject constructor(private val apiService: ApiSe
     ) : Response<ResponseBody> = apiService.updateProvider(id,body)
 
 
-    suspend fun createProvider( id: String,
+    suspend fun createProvider(
                                 body: RequestBody
-    ) : Response<ResponseBody> = apiService.createProvider(id, body)
+    ) : Response<ResponseBody> = apiService.createProvider(body)
 }

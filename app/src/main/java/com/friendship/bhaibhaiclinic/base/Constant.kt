@@ -23,6 +23,7 @@ object Constant {
     const val OFF_CACHE_VALUE_HINT = "public, only-if-cached, max-stale="
     const val ONLINE_CACHE_VALUE_HINT = "public, max-age="
     const val REMOVABLE_HEADER = "Pragma"
+    const val TYPE_TOKEN = "Bearer"
 
 
     /**
@@ -32,5 +33,7 @@ object Constant {
 
     const val INACTIVE = "inactive"
     const val ACTIVE = "active"
+    const val USER_TOKEN = "USER_TOKEN"
+    const val PREFS_TOKEN_FILE = "PREFS_TOKEN_FILE"
 
 }

@@ -29,7 +29,6 @@ interface ApiService {
 
     @POST(ENDPOINT_POST_PROVIDER_CREATE)
     suspend fun createProvider(
-        @Path("id") id: String,
         @Body body: RequestBody
     ): Response<ResponseBody>
 }

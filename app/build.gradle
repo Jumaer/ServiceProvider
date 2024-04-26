@@ -125,8 +125,7 @@ dependencies {
     // Logger for Retrofit
     implementation libs.logging.interceptor
 
-    // To Load any image
-    implementation libs.glide
+
 
 
 
