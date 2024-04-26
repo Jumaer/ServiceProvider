@@ -155,6 +155,7 @@ class ChangeProviderFragment : Fragment() {
             }
 
             Log.d(TAG, "$name $mail $gender $status")
+            Helper.hideKeyboard(binding.imageView)
 
             data = ProviderItem(mail,gender,data?.id,name,status)
 
