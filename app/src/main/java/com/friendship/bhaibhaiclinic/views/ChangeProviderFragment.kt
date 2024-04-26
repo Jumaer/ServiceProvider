@@ -128,6 +128,7 @@ class ChangeProviderFragment : Fragment() {
                 if(isChecked){
                     data?.status = ACTIVE
                 } else data?.status = INACTIVE
+                layoutStatus.editText?.setText(data?.status)
             }
 
 

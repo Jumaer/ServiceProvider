@@ -52,7 +52,7 @@ class TabContainerFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_tabContainerFragment_to_changeProviderFragment, bundleOf(
                     Constant.CREATE to ProviderItem("","",0,"",
-                        Constant.ACTIVE
+                        Constant.INACTIVE
                     )
                 )
             )
