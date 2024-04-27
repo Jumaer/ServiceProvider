@@ -2,14 +2,17 @@ package com.friendship.bhaibhaiclinic.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.base.Constant.ACTIVE
 import com.friendship.bhaibhaiclinic.databinding.LayoutProviderListItemBinding
 import com.friendship.bhaibhaiclinic.model.ProviderItem
@@ -107,14 +110,6 @@ class ProviderItemAdapter(
     private var currentCodePos = 0
 
     private fun setTextViewDrawableColor(textView: TextView, color: Int) {
-        for (drawable in textView.getCompoundDrawables()) {
-            if (drawable != null) {
-                drawable.colorFilter =
-                    PorterDuffColorFilter(
-                        ContextCompat.getColor(textView.context, color),
-                        PorterDuff.Mode.SRC_IN
-                    )
-            }
-        }
+       textView.backgroundTintList = ColorStateList.valueOf(color)
     }
 }
