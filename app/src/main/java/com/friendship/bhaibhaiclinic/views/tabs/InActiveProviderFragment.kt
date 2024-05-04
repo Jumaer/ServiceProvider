@@ -1,28 +1,24 @@
 package com.friendship.bhaibhaiclinic.views.tabs
 
 import android.os.Bundle
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+
 import androidx.navigation.fragment.findNavController
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.adapter.ProviderItemAdapter
 
 import com.friendship.bhaibhaiclinic.base.Constant
-import com.friendship.bhaibhaiclinic.base.LoadingDialog
+
 import com.friendship.bhaibhaiclinic.databinding.FragmentInActiveProviderBinding
 import com.friendship.bhaibhaiclinic.model.ProviderItem
-import com.friendship.bhaibhaiclinic.model.ProviderListResponse
-import com.friendship.bhaibhaiclinic.networking.DataState
-import com.friendship.bhaibhaiclinic.util.NetworkUtil
 import com.friendship.bhaibhaiclinic.view_model.ProviderViewModel
 
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,8 +26,8 @@ class InActiveProviderFragment : Fragment() {
 
 
     private lateinit var binding: FragmentInActiveProviderBinding
-    private val viewModel: ProviderViewModel by viewModels ()
-    private lateinit var loadingDialog: LoadingDialog
+
+    private val viewModel : ProviderViewModel by activityViewModels()
     private lateinit var adapterList: ProviderItemAdapter
     private val list = ArrayList<ProviderItem>()
 
@@ -42,58 +38,24 @@ class InActiveProviderFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentInActiveProviderBinding.inflate(inflater, container, false)
 
-        requireContext().let {
-            loadingDialog = LoadingDialog(it)
-            observeProviders()
-            viewModel.getProviders(requireContext())
-        }
+
         setAdapter()
+
         return binding.root
     }
 
 
-
-    private fun observeProviders() {
-        viewModel.getProviders.observe(viewLifecycleOwner) {
-            when (it) {
-                is DataState.Success -> {
-                  if(NetworkUtil.isValidResponse(it)){
-                      // get data
-                      val body = it.value.body()?.string()
-                      val response =
-                          Gson().fromJson(body, ProviderListResponse::class.java)
-                      setData(response)
-                  }
-                    loadingDialog.dismiss()
-                }
-
-                is DataState.Loading -> {
-                    loadingDialog.show()
-
-                }
-
-                is DataState.Error -> {
-                    loadingDialog.dismiss()
-
-                }
-
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        setData(viewModel.listInactive)
     }
 
-    private fun setData(response: ProviderListResponse?) {
-        if(response == null) return
+
+    private fun setData(listInactive: ArrayList<ProviderItem> ? ) {
+        if(listInactive == null) return
         list.clear()
-        response.forEach {
-            if(it.status != Constant.ACTIVE){
-                it.apply {
-                    list.add(ProviderItem(email, gender, id, name, status))
-                }
-            }
-        }
+        list.addAll(listInactive)
         adapterList.updateList(list)
-
-
     }
 
     private fun setAdapter() {
@@ -119,10 +81,7 @@ class InActiveProviderFragment : Fragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getProviders(requireContext())
-    }
+
 
 
 

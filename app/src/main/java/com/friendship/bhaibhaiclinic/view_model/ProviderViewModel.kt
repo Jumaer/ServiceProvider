@@ -1,12 +1,10 @@
 package com.friendship.bhaibhaiclinic.view_model
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.base.BaseViewModel
-import com.friendship.bhaibhaiclinic.model.ProviderListResponse
+import com.friendship.bhaibhaiclinic.model.ProviderItem
 import com.friendship.bhaibhaiclinic.networking.DataState
 
 import com.friendship.bhaibhaiclinic.repository.ProviderRepository
@@ -24,10 +22,29 @@ class ProviderViewModel
 constructor(private val repository: ProviderRepository, ) : BaseViewModel() {
 
 
+    val listActive = ArrayList<ProviderItem>()
+    val listInactive = ArrayList<ProviderItem>()
 
-    private val _getProviders: MutableLiveData<DataState<Response<ResponseBody>>> =
+
+    fun refreshData(){
+        _getProviders.postValue(null)
+        _changeProvider.postValue(null)
+        refreshList()
+    }
+
+    fun refreshList(){
+        listActive.clear()
+        listInactive.clear()
+    }
+
+
+
+
+
+
+    private val _getProviders: MutableLiveData<DataState<Response<ResponseBody>>?> =
         MutableLiveData()
-    val getProviders: LiveData<DataState<Response<ResponseBody>>> get() = _getProviders
+    val getProviders: LiveData<DataState<Response<ResponseBody>>?> get() = _getProviders
 
 
     fun getProviders(context: Context) = dataCall(context) {
@@ -35,27 +52,23 @@ constructor(private val repository: ProviderRepository, ) : BaseViewModel() {
         _getProviders.value = repository.getProviders()
     }
 
-    private val _updateProvider: MutableLiveData<DataState<Response<ResponseBody>>> =
+    private val _changeProvider: MutableLiveData<DataState<Response<ResponseBody>>?> =
         MutableLiveData()
-    val updateProvider: LiveData<DataState<Response<ResponseBody>>> get() = _updateProvider
+    val changeProvider: LiveData<DataState<Response<ResponseBody>>?> get() = _changeProvider
 
 
     fun updateProvider(context: Context,id: String, body: RequestBody) = dataCall(context) {
-        _updateProvider.value = DataState.Loading
-        _updateProvider.value = repository.updateProvider(id, body)
+        _changeProvider.value = DataState.Loading
+        _changeProvider.value = repository.updateProvider(id, body)
     }
-
-
-
-    private val _createProvider: MutableLiveData<DataState<Response<ResponseBody>>> =
-        MutableLiveData()
-    val createProvider: LiveData<DataState<Response<ResponseBody>>> get() = _createProvider
 
 
     fun createProvider(context: Context,  body: RequestBody) = dataCall(context)  {
-        _createProvider.value = DataState.Loading
-        _createProvider.value = repository.createProvider( body)
+        _changeProvider.value = DataState.Loading
+        _changeProvider.value = repository.createProvider( body)
     }
+
+
 
 
 

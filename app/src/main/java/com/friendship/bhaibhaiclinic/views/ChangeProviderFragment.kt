@@ -39,7 +39,7 @@ class ChangeProviderFragment : Fragment() {
 
     private  var data : ProviderItem?= null
     private lateinit var binding: FragmentChangeProviderBinding
-    private val viewModel : ProviderViewModel by viewModels()
+    private val viewModel : ProviderViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingDialog
 
 
@@ -58,13 +58,14 @@ class ChangeProviderFragment : Fragment() {
     }
 
     private fun observeUpdateData() {
-        viewModel.updateProvider.observe(viewLifecycleOwner) {
+        viewModel.changeProvider.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Success -> {
                     if (NetworkUtil.isValidResponse(it)) {
                         // get data
                         val body = it.value.body()?.string()
                         Log.e(Constant.TAG, body.toString())
+                        viewModel.refreshList()
                         goBack()
                     }
                     loadingDialog.dismiss()
@@ -79,34 +80,13 @@ class ChangeProviderFragment : Fragment() {
                     loadingDialog.dismiss()
 
                 }
-
+                else -> {
+                    Log.d(TAG,"Something wrong")
+                }
             }
         }
 
-        viewModel.createProvider.observe(viewLifecycleOwner) {
-            when (it) {
-                is DataState.Success -> {
-                    if (NetworkUtil.isValidResponse(it)) {
-                        // get data
-                        val body = it.value.body()?.string()
-                        Log.e(Constant.TAG, body.toString())
-                        goBack()
-                    }
-                    loadingDialog.dismiss()
-                }
 
-                is DataState.Loading -> {
-                    loadingDialog.show()
-
-                }
-
-                is DataState.Error -> {
-                    loadingDialog.dismiss()
-
-                }
-
-            }
-        }
     }
 
     private fun setClicks() {

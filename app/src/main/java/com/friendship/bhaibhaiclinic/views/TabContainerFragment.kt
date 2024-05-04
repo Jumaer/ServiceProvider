@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.friendship.bhaibhaiclinic.R
 import com.friendship.bhaibhaiclinic.adapter.ViewPagerAdapter
 import com.friendship.bhaibhaiclinic.base.Constant
+import com.friendship.bhaibhaiclinic.base.Constant.TAG
 import com.friendship.bhaibhaiclinic.base.LoadingDialog
 
 
@@ -35,7 +38,8 @@ class TabContainerFragment : Fragment() {
 
 
     private lateinit var binding: FragmentTabContainerBinding
-
+    private val viewModel : ProviderViewModel by activityViewModels()
+    private lateinit var loadingDialog: LoadingDialog
 
 
 
@@ -45,9 +49,13 @@ class TabContainerFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentTabContainerBinding.inflate(inflater, container, false)
+        requireContext().let {
+            loadingDialog = LoadingDialog(it)
+            observeProviders()
+        }
 
-        setAdapter()
         binding.addFab.setOnClickListener {
+
 
             findNavController().navigate(
                 R.id.action_tabContainerFragment_to_changeProviderFragment, bundleOf(
@@ -79,5 +87,73 @@ class TabContainerFragment : Fragment() {
         }
 
 
+    }
+
+    private fun observeProviders() {
+        viewModel.getProviders.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> {
+                    if (NetworkUtil.isValidResponse(it)) {
+                        // get data
+                        val body = it.value.body()?.string()
+                        val response =
+                            Gson().fromJson(body, ProviderListResponse::class.java)
+                        setData(response)
+                    }
+                    loadingDialog.dismiss()
+                }
+
+                is DataState.Loading -> {
+                    loadingDialog.show()
+
+                }
+
+                is DataState.Error -> {
+                    loadingDialog.dismiss()
+
+                }
+
+                else -> {
+                    Log.d(TAG,"Something wrong")
+                }
+            }
+        }
+    }
+
+    private fun setData(response: ProviderListResponse?) {
+        if (response == null) return
+        viewModel.apply {
+            refreshData()
+            response.forEach {
+                when (it.status) {
+                    Constant.ACTIVE -> {
+                        it.apply {
+                            listActive.add(ProviderItem(email, gender, id, name, status))
+                        }
+                    }
+                    Constant.INACTIVE -> {
+                        it.apply {
+                            listInactive.add(ProviderItem(email, gender, id, name, status))
+                        }
+                    }
+                    else -> {
+                        Log.d(TAG,"${it.status } is not specified")
+                    }
+                }
+            }
+        }
+
+        setAdapter()
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.apply {
+            if(listActive.size == 0 || listInactive.size == 0){
+                viewModel.getProviders(requireContext())
+            }
+        }
     }
 }
