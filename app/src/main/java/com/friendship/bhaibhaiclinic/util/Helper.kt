@@ -11,6 +11,7 @@ import com.friendship.bhaibhaiclinic.R
 import java.io.Serializable
 import java.lang.Exception
 
+
 class Helper() {
     companion object {
         fun isValidEmail(email: String): Boolean {
@@ -28,8 +29,9 @@ class Helper() {
 
 
         fun <T : Serializable?> getSerializable(bundle: Bundle?, key: String, clazz: Class<T>): T? {
+            @Suppress("UNCHECKED_CAST")
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) bundle?.getSerializable(key, clazz)
-            else bundle?.getSerializable(key) as T
+            else @Suppress("DEPRECATION")bundle?.getSerializable(key) as T
         }
 
         fun getColors(context: Context) : ArrayList<Int>{
