@@ -71,12 +71,12 @@ class TabContainerFragment : Fragment() {
 
 
 
-
+    private lateinit var adapter : ViewPagerAdapter
 
     private fun setAdapter() {
         val tabArrayList =
             arrayOf(context?.getString(R.string.active), context?.getString(R.string.inactive))
-        val adapter = ViewPagerAdapter(requireActivity(), tabArrayList.size)
+        adapter = ViewPagerAdapter(requireActivity(), tabArrayList.size)
         binding.apply {
             viewPager.adapter = adapter
 
@@ -143,13 +143,14 @@ class TabContainerFragment : Fragment() {
             }
         }
 
-        setAdapter()
+
 
     }
 
 
     override fun onResume() {
         super.onResume()
+        setAdapter()
         viewModel.apply {
             if(listActive.size == 0 || listInactive.size == 0){
                 viewModel.getProviders(requireContext())
